@@ -167,11 +167,13 @@ var bot = new builder.UniversalBot(connector, function (session) {
         if ((hour >= 12) && (hour < 17)) { greeting = "Good After Noon" }
 		
 	    if ((hour >= 23) && (hour < 4)) { greeting = "So Late , I am here to help" }
+		
+		greeting="Hope You are goog :) ";
 
 
 
     }
-    session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace+ " at" + messageTiming);	
+    session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace);	
 
 
 var options = {
