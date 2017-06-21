@@ -151,14 +151,24 @@ var bot = new builder.UniversalBot(connector, function (session) {
     var greeting = "";
 
     if (messageTiming != undefined && messageTiming != null) {
+		
+		var date = new Date();
 
-        if ((messageTiming.split("T")[1].split(":")[0] >= 12) && (messageTiming.split("T")[1].split(":")[0] < 17)) {
+    var hour = date.getHours();
+	console.log(hour);
+	
 
-            greeting = "Good AfterNoon"
+        if ((hour >= 17) && (hour< 23)) {
+
+            greeting = "Good Evening";
         }
-        if ((messageTiming.split("T")[1].split(":")[0] >= 17) && (messageTiming.split("T")[1].split(":")[0] < 23)) { greeting = "Good Evening" }
+        if ((hour >= 4) && (hour < 12)) { greeting = "Good Morning"; }
 
-        if ((messageTiming.split("T")[1].split(":")[0] >= 4) && (messageTiming.split("T")[1].split(":")[0] < 12)) { greeting = "Good Morning" }
+        if ((hour >= 12) && (hour < 17)) { greeting = "Good After Noon" }
+		
+	    if ((hour >= 23) && (hour < 4)) { greeting = "So Late , I am here to help" }
+
+
 
     }
     session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace);	
