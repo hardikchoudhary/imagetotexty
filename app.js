@@ -109,7 +109,7 @@ var config = require("./config.js");
 var resultsMetroName=[];
 var returningResultKeyval=[];
 var longitude,latitude,passingStationName="";
-var nearfromPlace = "Gip Noida";
+var nearfromPlace = "";
 
 
 
@@ -167,7 +167,17 @@ if(session.type=="conversationUpdate"){
     }
 
     else { 
-    nearfromPlace = session.message.text.split("from")[1];
+
+        nearfromPlace = session.message.text.split("from")[1];
+
+        if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+            nearfromPlace = session.message.text.split("From")[1];
+        }
+
+        if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+            nearfromPlace = session.message.text.split("frm")[1];
+        }
+
     //"2017-06-18T11:58:26+05:30"
     var messageTiming = session.message.timestamp;
     var greeting = "";
