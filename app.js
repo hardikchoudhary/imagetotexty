@@ -132,12 +132,32 @@ var connector = new builder.ChatConnector({
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
+// Send welcome when conversation with bot is started, by initiating the root dialog
+
+
+var botconnect = new builder.UniversalBot(connector);
+
+
+ botconnect.on('conversationUpdate', function (message) {
+	
+     if (message.membersAdded) {
+         message.membersAdded.forEach(function (identity) {
+             if (identity.id === message.address.bot.id) {
+                   message.send("Hellofvdfsfdsf"); 
+             }
+         });
+     }
+ });
+
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
 
-    session.send("check" + session.message.type);
+if(session.type=="conversationUpdate"){
 	
-    
+	session.send("Hello welcome");
+	
+}
+	
     if (session.message.text.includes("Get Route Details")) {
 
        // session.send("I am getting your route to" + session.message.text.split("Get Route Details:")[1]);
