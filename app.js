@@ -177,6 +177,9 @@ if(session.type=="conversationUpdate"){
         if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
             nearfromPlace = session.message.text.split("frm")[1];
         }
+		if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+            nearfromPlace = session.message.text.split("Frm")[1];
+        }
 
     //"2017-06-18T11:58:26+05:30"
     var messageTiming = session.message.timestamp;
