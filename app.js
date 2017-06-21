@@ -135,7 +135,7 @@ server.post('/api/messages', connector.listen());
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 var bot = new builder.UniversalBot(connector, function (session) {
 
-    
+    session.send("check" + session.message.type);
 	
     
     if (session.message.text.includes("Get Route Details")) {
