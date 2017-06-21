@@ -171,7 +171,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
 
 
     }
-    session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace+ " at" +hour);	
+    session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace+ " at" + messageTiming);	
 
 
 var options = {
