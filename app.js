@@ -369,10 +369,7 @@ bot.on('conversationUpdate', function (message) {
 
     console.log(message.address.bot.name);
 
-    if(message.membersAdded[0].name== message.address.bot.name){
-	  
-
-	
+    // if(message.membersAdded[0].name== message.address.bot.name){
    if (message.membersAdded && message.membersAdded.length > 0) {
       
             var membersAdded = message.membersAdded
@@ -383,10 +380,10 @@ bot.on('conversationUpdate', function (message) {
 
             bot.send(new builder.Message()
                 .address(message.address)
-                .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "));
+                .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "+message.membersAdded[0].name));
         
    }
-	}
+	//}
     
     
     
