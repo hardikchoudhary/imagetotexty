@@ -127,6 +127,12 @@ var connector = new builder.ChatConnector({
     appPassword:"mHCEFZUbfZnFH5HLUseuJK1"
 });
 
+var redJn=["Kashimiri Gate","Inderlok"]
+var blueJn=["Rajiv Chowk","Kirti Nagar"];
+var violetJn=["Central Secretariat","Kashimiri Gate"];
+var orangeJn=["Dwarka Sector 21","New Delhi"];
+var yellowjn=["Rajiv Chowk","Central Secretariat","Kashimiri Gate","New Delhi"];
+var greenJn=["Kirti Nagar"];
 
 
 // Listen for messages from users 
@@ -134,6 +140,23 @@ server.post('/api/messages', connector.listen());
 
 // Send welcome when conversation with bot is started, by initiating the root dialog
 var bot = new builder.UniversalBot(connector);
+
+bot.dialog('/', function (session) {
+    session.send("Hello");
+   
+});
+
+
+// Send welcome when conversation with bot is started, by initiating the root dialog
+bot.on('conversationUpdate', function (message) {
+    if (message.membersAdded) {
+        message.membersAdded.forEach(function (identity) {
+            if (identity.id === message.address.bot.id) {
+                bot.beginDialog(message.address, '/');
+            }
+        });
+    }
+});
 
 // // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
 // bot = new builder.UniversalBot(connector, function (session) {
@@ -351,41 +374,41 @@ var bot = new builder.UniversalBot(connector);
 // });
 
 
-bot.on('conversationUpdate', function (message) {
+// bot.on('conversationUpdate', function (message) {
 
-    console.log(message.address.bot.name);
+//     console.log(message.address.bot.name);
 
-     if(message.membersAdded[0].name== message.address.bot.name){
-   if (message.membersAdded && message.membersAdded.length > 0) {
+//      if(message.membersAdded[0].name== message.address.bot.name){
+//    if (message.membersAdded && message.membersAdded.length > 0) {
       
-            var membersAdded = message.membersAdded
-                .map(function (m) {
-                    var isSelf = m.id === message.address.bot.id;
-                    return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-                }).join(', ');
+//             var membersAdded = message.membersAdded
+//                 .map(function (m) {
+//                     var isSelf = m.id === message.address.bot.id;
+//                     return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+//                 }).join(', ');
 
-            bot.send(new builder.Message()
-                .address(message.address)
-                .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "+message.membersAdded[0].name));
+//             bot.send(new builder.Message()
+//                 .address(message.address)
+//                 .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "+message.membersAdded[0].name));
         
-   }
-	}
+//    }
+// 	}
     
     
     
 
-    if (message.membersRemoved && message.membersRemoved.length > 0) {
-        var membersRemoved = message.membersRemoved
-            .map(function (m) {
-                var isSelf = m.id === message.address.bot.id;
-                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-            })
-            .join(', ');
+//     if (message.membersRemoved && message.membersRemoved.length > 0) {
+//         var membersRemoved = message.membersRemoved
+//             .map(function (m) {
+//                 var isSelf = m.id === message.address.bot.id;
+//                 return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+//             })
+//             .join(', ');
 
-        bot.send(new builder.Message()
-            .address(message.address)
-            .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
-    }
-});
+//         bot.send(new builder.Message()
+//             .address(message.address)
+//             .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
+//     }
+// });
 
 
