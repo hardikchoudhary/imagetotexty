@@ -132,55 +132,11 @@ var connector = new builder.ChatConnector({
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
-// This is a dinner reservation bot that uses a waterfall technique to prompt users for input.
-var bot = new builder.UniversalBot(connector, [
-    function (session) {
-        session.send("Welcome to the dinner reservation.");
-        builder.Prompts.time(session, "Please provide a reservation date and time (e.g.: June 6th at 5pm)");
-    },
-    function (session, results) {
-        session.dialogData.reservationDate = builder.EntityRecognizer.resolveTime([results.response]);
-        builder.Prompts.text(session, "How many people are in your party?");
-    },
-    function (session, results) {
-        session.dialogData.partySize = results.response;
-        builder.Prompts.text(session, "Who's name will this reservation be under?");
-    },
-    function (session, results) {
-        session.dialogData.reservationName = results.response;
-
-        // Process request and display reservation details
-        session.send("Reservation confirmed. Reservation details: <br/>Date/Time: %s <br/>Party size: %s <br/>Reservation name: %s",
-            session.dialogData.reservationDate, session.dialogData.partySize, session.dialogData.reservationName);
-        session.endDialog();
-    }
-]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // Send welcome when conversation with bot is started, by initiating the root dialog
+var bot = new builder.UniversalBot(connector);
 
-// Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
-// var bot = new builder.UniversalBot(connector, function (session) {
+// // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
+// bot = new builder.UniversalBot(connector, function (session) {
 
 
 	
@@ -395,41 +351,41 @@ var bot = new builder.UniversalBot(connector, [
 // });
 
 
-// // bot.on('conversationUpdate', function (message) {
+bot.on('conversationUpdate', function (message) {
 
-// //     console.log(message.address.bot.name);
+    console.log(message.address.bot.name);
 
-// //     // if(message.membersAdded[0].name== message.address.bot.name){
-// //    if (message.membersAdded && message.membersAdded.length > 0) {
+     if(message.membersAdded[0].name== message.address.bot.name){
+   if (message.membersAdded && message.membersAdded.length > 0) {
       
-// //             var membersAdded = message.membersAdded
-// //                 .map(function (m) {
-// //                     var isSelf = m.id === message.address.bot.id;
-// //                     return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-// //                 }).join(', ');
+            var membersAdded = message.membersAdded
+                .map(function (m) {
+                    var isSelf = m.id === message.address.bot.id;
+                    return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+                }).join(', ');
 
-// //             bot.send(new builder.Message()
-// //                 .address(message.address)
-// //                 .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "+message.membersAdded[0].name));
+            bot.send(new builder.Message()
+                .address(message.address)
+                .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "+message.membersAdded[0].name));
         
-// //    }
-// // 	//}
+   }
+	}
     
     
     
 
-// //     if (message.membersRemoved && message.membersRemoved.length > 0) {
-// //         var membersRemoved = message.membersRemoved
-// //             .map(function (m) {
-// //                 var isSelf = m.id === message.address.bot.id;
-// //                 return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-// //             })
-// //             .join(', ');
+    if (message.membersRemoved && message.membersRemoved.length > 0) {
+        var membersRemoved = message.membersRemoved
+            .map(function (m) {
+                var isSelf = m.id === message.address.bot.id;
+                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+            })
+            .join(', ');
 
-// //         bot.send(new builder.Message()
-// //             .address(message.address)
-// //             .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
-// //     }
-// // });
+        bot.send(new builder.Message()
+            .address(message.address)
+            .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
+    }
+});
 
 
