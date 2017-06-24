@@ -132,274 +132,304 @@ var connector = new builder.ChatConnector({
 // Listen for messages from users 
 server.post('/api/messages', connector.listen());
 
+// This is a dinner reservation bot that uses a waterfall technique to prompt users for input.
+var bot = new builder.UniversalBot(connector, [
+    function (session) {
+        session.send("Welcome to the dinner reservation.");
+        builder.Prompts.time(session, "Please provide a reservation date and time (e.g.: June 6th at 5pm)");
+    },
+    function (session, results) {
+        session.dialogData.reservationDate = builder.EntityRecognizer.resolveTime([results.response]);
+        builder.Prompts.text(session, "How many people are in your party?");
+    },
+    function (session, results) {
+        session.dialogData.partySize = results.response;
+        builder.Prompts.text(session, "Who's name will this reservation be under?");
+    },
+    function (session, results) {
+        session.dialogData.reservationName = results.response;
+
+        // Process request and display reservation details
+        session.send("Reservation confirmed. Reservation details: <br/>Date/Time: %s <br/>Party size: %s <br/>Reservation name: %s",
+            session.dialogData.reservationDate, session.dialogData.partySize, session.dialogData.reservationName);
+        session.endDialog();
+    }
+]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Send welcome when conversation with bot is started, by initiating the root dialog
 
 // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
-var bot = new builder.UniversalBot(connector, function (session) {
+// var bot = new builder.UniversalBot(connector, function (session) {
 
 
 	
-    if (session.message.text.includes("Get Route Details")) {
+//     if (session.message.text.includes("Get Route Details")) {
 
-       // session.send("I am getting your route to" + session.message.text.split("Get Route Details:")[1]);
-        session.send("Getting route is in development phase, please use google as of now");
-        //http://ridlr.in/news/wp-content/uploads/2015/11/delhi-metro-phase-3-map.jpg
+//        // session.send("I am getting your route to" + session.message.text.split("Get Route Details:")[1]);
+//         session.send("Getting route is in development phase, please use google as of now");
+//         //http://ridlr.in/news/wp-content/uploads/2015/11/delhi-metro-phase-3-map.jpg
 
-    }
+//     }
 
-    else { 
+//     else { 
 
-        nearfromPlace = session.message.text.split("from")[1];
+//         nearfromPlace = session.message.text.split("from")[1];
 
-        if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
-            nearfromPlace = session.message.text.split("From")[1];
-        }
+//         if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+//             nearfromPlace = session.message.text.split("From")[1];
+//         }
 
-        if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
-            nearfromPlace = session.message.text.split("frm")[1];
-        }
-		if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
-            nearfromPlace = session.message.text.split("Frm")[1];
-        }
+//         if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+//             nearfromPlace = session.message.text.split("frm")[1];
+//         }
+// 		if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+//             nearfromPlace = session.message.text.split("Frm")[1];
+//         }
 
-    //"2017-06-18T11:58:26+05:30"
-    var messageTiming = session.message.timestamp;
-    var greeting = "";
+//     //"2017-06-18T11:58:26+05:30"
+//     var messageTiming = session.message.timestamp;
+//     var greeting = "";
 
-    if (messageTiming != undefined && messageTiming != null) {
+//     if (messageTiming != undefined && messageTiming != null) {
 		
-		var date = new Date();
+// 		var date = new Date();
 
-    var hour = date.getHours();
-	console.log(hour);
+//     var hour = date.getHours();
+// 	console.log(hour);
 	
 
-        if ((hour >= 17) && (hour< 23)) {
+//         if ((hour >= 17) && (hour< 23)) {
 
-            greeting = "Good Evening";
-        }
-        if ((hour >= 4) && (hour < 12)) { greeting = "Good Morning"; }
+//             greeting = "Good Evening";
+//         }
+//         if ((hour >= 4) && (hour < 12)) { greeting = "Good Morning"; }
 
-        if ((hour >= 12) && (hour < 17)) { greeting = "Good After Noon" }
+//         if ((hour >= 12) && (hour < 17)) { greeting = "Good After Noon" }
 		
-	    if ((hour >= 23) && (hour < 4)) { greeting = "So Late , I am here to help" }
+// 	    if ((hour >= 23) && (hour < 4)) { greeting = "So Late , I am here to help" }
 		
-		greeting="Hope You are good :) ";
+// 		greeting="Hope You are good :) ";
 
 
 
-    }
-    session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace);	
+//     }
+//     session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace);	
 
 
-var options = {
-  provider: 'google',
+// var options = {
+//   provider: 'google',
  
-  // Optional depending on the providers 
-  // Default 
-  apiKey: 'AIzaSyACurvXGgbQqG6fSe4-P1sOcEtwmyhXoTM', // for Mapquest, OpenCage, Google Premier 
-  formatter: "json"         // 'gpx', 'string', ... 
-};
+//   // Optional depending on the providers 
+//   // Default 
+//   apiKey: 'AIzaSyACurvXGgbQqG6fSe4-P1sOcEtwmyhXoTM', // for Mapquest, OpenCage, Google Premier 
+//   formatter: "json"         // 'gpx', 'string', ... 
+// };
  
-var geocoder = NodeGeocoder(options);
-// Using callback 
-geocoder.geocode(nearfromPlace, function(err, res) {
+// var geocoder = NodeGeocoder(options);
+// // Using callback 
+// geocoder.geocode(nearfromPlace, function(err, res) {
 		
-		latitude=res[0].latitude;
-        longitude = res[0].longitude;
+// 		latitude=res[0].latitude;
+//         longitude = res[0].longitude;
 
-        var placeSearch = new PlaceSearch(config.apiKey, config.outputFormat);
-        var parameters = {
-            location: [latitude, longitude],
-            rankby: "distance",
-            types: "subway_station"
-        };
+//         var placeSearch = new PlaceSearch(config.apiKey, config.outputFormat);
+//         var parameters = {
+//             location: [latitude, longitude],
+//             rankby: "distance",
+//             types: "subway_station"
+//         };
 
-        placeSearch(parameters, function (error, response) {
-            resultsMetroName = [];
+//         placeSearch(parameters, function (error, response) {
+//             resultsMetroName = [];
 
-            console.log(response);
+//             console.log(response);
 
-            // result=response;
-            for (var i = 0; i < response.results.length; i++) {
-                // passingStationName=response.results[i].name;
+//             // result=response;
+//             for (var i = 0; i < response.results.length; i++) {
+//                 // passingStationName=response.results[i].name;
 
-                resultsMetroName.push(response.results[i].name);
-            }
-            var org = [resultsMetroName[0] + "Metro", resultsMetroName[1] + "Metro", resultsMetroName[2] + "Metro"];
-            distance.get(
-                {
-                    origins:
-                    org,
-                    destinations: [nearfromPlace]
-                },
-                function (err, data) {
-                    if (err) return console.log(err);
-                    returningResultKeyval = [];
+//                 resultsMetroName.push(response.results[i].name);
+//             }
+//             var org = [resultsMetroName[0] + "Metro", resultsMetroName[1] + "Metro", resultsMetroName[2] + "Metro"];
+//             distance.get(
+//                 {
+//                     origins:
+//                     org,
+//                     destinations: [nearfromPlace]
+//                 },
+//                 function (err, data) {
+//                     if (err) return console.log(err);
+//                     returningResultKeyval = [];
 
-                    var cards = [new builder.HeroCard(session)
-                        .title('Nearest Metro Station')
-                        .subtitle('Station Name: ' + resultsMetroName[0] + ' Distance:' + data[0].distance)
-                        .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
-                        .images([
-                            builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
-                        ])
-                        .buttons([
-                            builder.CardAction.postBack(session, "Get Route Details:" + resultsMetroName[0], "Get Route")
-                            //builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
-                        ]),
+//                     var cards = [new builder.HeroCard(session)
+//                         .title('Nearest Metro Station')
+//                         .subtitle('Station Name: ' + resultsMetroName[0] + ' Distance:' + data[0].distance)
+//                         .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
+//                         .images([
+//                             builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
+//                         ])
+//                         .buttons([
+//                             builder.CardAction.postBack(session, "Get Route Details:" + resultsMetroName[0], "Get Route")
+//                             //builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
+//                         ]),
 
-                        new builder.HeroCard(session)
-                            .title('Nearest Metro Station')
-                            .subtitle('Station Name: ' + resultsMetroName[1] + ' Distance:' + data[1].distance)
-                            .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
-                            .images([
-                                builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
-                            ])
-                            .buttons([
-                                builder.CardAction.postBack(session, "Get Route Details:" + resultsMetroName[1], "Get Route")
-                                //builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
-                            ]),
-                        new builder.HeroCard(session)
-                            .title('Nearest Metro Station')
-                            .subtitle('Station Name: ' + resultsMetroName[2] + ' Distance:' + data[2].distance)
-                            .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
-                            .images([
+//                         new builder.HeroCard(session)
+//                             .title('Nearest Metro Station')
+//                             .subtitle('Station Name: ' + resultsMetroName[1] + ' Distance:' + data[1].distance)
+//                             .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
+//                             .images([
+//                                 builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
+//                             ])
+//                             .buttons([
+//                                 builder.CardAction.postBack(session, "Get Route Details:" + resultsMetroName[1], "Get Route")
+//                                 //builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
+//                             ]),
+//                         new builder.HeroCard(session)
+//                             .title('Nearest Metro Station')
+//                             .subtitle('Station Name: ' + resultsMetroName[2] + ' Distance:' + data[2].distance)
+//                             .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
+//                             .images([
 
-                                builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
-                            ])
-                            .buttons([
+//                                 builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
+//                             ])
+//                             .buttons([
                                
-                                builder.CardAction.postBack(session, "Get Route Details:" + resultsMetroName[1], "Get Route")
-                                //builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
-                            ])
-                    ]
+//                                 builder.CardAction.postBack(session, "Get Route Details:" + resultsMetroName[1], "Get Route")
+//                                 //builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
+//                             ])
+//                     ]
 
-                    var reply = new builder.Message(session)
-                        .attachmentLayout(builder.AttachmentLayout.carousel)
-                        .attachments(cards);     
-                    session.send(reply);
+//                     var reply = new builder.Message(session)
+//                         .attachmentLayout(builder.AttachmentLayout.carousel)
+//                         .attachments(cards);     
+//                     session.send(reply);
 
-                    for (var i = 0; i < data.length; i++) {
-                        returningResultKeyval.push(resultsMetroName[i] + "-Distance-" + data[i].distance);
+//                     for (var i = 0; i < data.length; i++) {
+//                         returningResultKeyval.push(resultsMetroName[i] + "-Distance-" + data[i].distance);
 
-//                        var card =[ new builder.HeroCard(session)
-//                            .title('Nearest Metro Station')
-//                            .subtitle('Station Name: '+ resultsMetroName[0] + ' Distance:' + data[0].distance)
-//                            .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
-//                            .images([
-//                                builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
-//                            ])
-//                            .buttons([
-//                                builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
-//                            ]),
+// //                        var card =[ new builder.HeroCard(session)
+// //                            .title('Nearest Metro Station')
+// //                            .subtitle('Station Name: '+ resultsMetroName[0] + ' Distance:' + data[0].distance)
+// //                            .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
+// //                            .images([
+// //                                builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
+// //                            ])
+// //                            .buttons([
+// //                                builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
+// //                            ]),
 
-//                            new builder.HeroCard(session)
-//                                .title('Nearest Metro Station')
-//                                .subtitle('Station Name: ' + resultsMetroName[1] + ' Distance:' + data[1].distance)
-//                                .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
-//                                .images([
-//                                    builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
-//                                ])
-//                                .buttons([
-//                                    builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
-//                                ]),
-//                            new builder.HeroCard(session)
-//                                .title('Nearest Metro Station')
-//                                .subtitle('Station Name: ' + resultsMetroName[2] + ' Distance:' + data[2].distance)
-//                                .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
-//                                .images([
-//                                    builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
-//                                ])
-//                                .buttons([
-//                                    builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
-//                                ])
-//]
-                        //var msg = new builder.Message(session).addAttachment(card);
-                        //session.send(msg);
-                    }
+// //                            new builder.HeroCard(session)
+// //                                .title('Nearest Metro Station')
+// //                                .subtitle('Station Name: ' + resultsMetroName[1] + ' Distance:' + data[1].distance)
+// //                                .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
+// //                                .images([
+// //                                    builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
+// //                                ])
+// //                                .buttons([
+// //                                    builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
+// //                                ]),
+// //                            new builder.HeroCard(session)
+// //                                .title('Nearest Metro Station')
+// //                                .subtitle('Station Name: ' + resultsMetroName[2] + ' Distance:' + data[2].distance)
+// //                                .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
+// //                                .images([
+// //                                    builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
+// //                                ])
+// //                                .buttons([
+// //                                    builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
+// //                                ])
+// //]
+//                         //var msg = new builder.Message(session).addAttachment(card);
+//                         //session.send(msg);
+//                     }
 
-                    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//                     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-                    //var card = createCard(selectedCardName, session);
-
-
-                    //var card= new builder.HeroCard(session)
-                    //    .title('Nearest Metro Station')
-                    //    .subtitle('Station Name: 'resultsMetroName[i] + 'Distance:' + data[i].distance)
-                    //    .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
-                    //    .images([
-                    //        builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
-                    //    ])
-                    //    .buttons([
-                    //        builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
-                    //    ]);
-                    //var msg = new builder.Message(session).addAttachment(card);
-                    //session.send(msg);
-
-                    //==================================================================
-
-                    //session.send("Here are the results for nearest metro station that I have found for you along with the distance: "+ returningResultKeyval);
-
-                });
-            if (error) throw error;
-            assert.notEqual(response.results.length, 0, "Ranked place search must not return 0 results");
-        });	
-});
-    }
-});
+//                     //var card = createCard(selectedCardName, session);
 
 
-//bot.on('conversationUpdate', function (message) {
+//                     //var card= new builder.HeroCard(session)
+//                     //    .title('Nearest Metro Station')
+//                     //    .subtitle('Station Name: 'resultsMetroName[i] + 'Distance:' + data[i].distance)
+//                     //    .text('Results shown are shown in order of nearest station , you can click on get route to get complete Metro Route ex. Where you have to change and on which line you have to go')
+//                     //    .images([
+//                     //        builder.CardImage.create(session, 'http://uptunotes.com/wp-content/uploads/2016/06/dmrc.jpg')
+//                     //    ])
+//                     //    .buttons([
+//                     //        builder.CardAction.openUrl(session, 'https://docs.microsoft.com/bot-framework/', 'Get Route')
+//                     //    ]);
+//                     //var msg = new builder.Message(session).addAttachment(card);
+//                     //session.send(msg);
 
-//    if (message.membersAdded) {
-//        message.membersAdded.forEach(function (identity) {
-//            if (identity.id === message.address.bot.id) {
-//                message.send("Hellofvdfsfdsf");
-//            }
-//        });
-//    }
-//});
+//                     //==================================================================
+
+//                     //session.send("Here are the results for nearest metro station that I have found for you along with the distance: "+ returningResultKeyval);
+
+//                 });
+//             if (error) throw error;
+//             assert.notEqual(response.results.length, 0, "Ranked place search must not return 0 results");
+//         });	
+// });
+//     }
+// });
 
 
+// // bot.on('conversationUpdate', function (message) {
 
+// //     console.log(message.address.bot.name);
 
-
-bot.on('conversationUpdate', function (message) {
-
-    console.log(message.address.bot.name);
-
-    // if(message.membersAdded[0].name== message.address.bot.name){
-   if (message.membersAdded && message.membersAdded.length > 0) {
+// //     // if(message.membersAdded[0].name== message.address.bot.name){
+// //    if (message.membersAdded && message.membersAdded.length > 0) {
       
-            var membersAdded = message.membersAdded
-                .map(function (m) {
-                    var isSelf = m.id === message.address.bot.id;
-                    return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-                }).join(', ');
+// //             var membersAdded = message.membersAdded
+// //                 .map(function (m) {
+// //                     var isSelf = m.id === message.address.bot.id;
+// //                     return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+// //                 }).join(', ');
 
-            bot.send(new builder.Message()
-                .address(message.address)
-                .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "+message.membersAdded[0].name));
+// //             bot.send(new builder.Message()
+// //                 .address(message.address)
+// //                 .text("Hello You can start finding Near By Metro from any place ,By typing from Place city .. Example message me 'from gip noida' or 'from govindpuri delhi' "+message.membersAdded[0].name));
         
-   }
-	//}
+// //    }
+// // 	//}
     
     
     
 
-    if (message.membersRemoved && message.membersRemoved.length > 0) {
-        var membersRemoved = message.membersRemoved
-            .map(function (m) {
-                var isSelf = m.id === message.address.bot.id;
-                return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
-            })
-            .join(', ');
+// //     if (message.membersRemoved && message.membersRemoved.length > 0) {
+// //         var membersRemoved = message.membersRemoved
+// //             .map(function (m) {
+// //                 var isSelf = m.id === message.address.bot.id;
+// //                 return (isSelf ? message.address.bot.name : m.name) || '' + ' (Id: ' + m.id + ')';
+// //             })
+// //             .join(', ');
 
-        bot.send(new builder.Message()
-            .address(message.address)
-            .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
-    }
-});
+// //         bot.send(new builder.Message()
+// //             .address(message.address)
+// //             .text('The following members ' + membersRemoved + ' were removed or left the conversation :('));
+// //     }
+// // });
 
 
