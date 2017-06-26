@@ -181,7 +181,7 @@ bot = new builder.UniversalBot(connector, function (session) {
 // }
 if(!(session.message.text.toLowerCase().includes("from")||session.message.text.toLowerCase().includes("frm"))){
 
-if(!session.message.text.toLowerCase().includes("Get Route Details")) {
+if(!session.message.text.toLowerCase().includes("get route details")) {
   session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'PlaceName City' like nearest gip noida or closest to akshardham");
 }
 }
