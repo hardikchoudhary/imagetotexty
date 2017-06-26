@@ -168,7 +168,7 @@ bot.recognizer(recognizer);
 
 bot.dialog('greeting', function (session, args) {
  session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'PlaceName City' like nearest gip noida or closest to akshardham or way you want");
- greeting="";
+greeting="";
    }).triggerAction({
     matches: 'greeting'
 });
@@ -228,12 +228,13 @@ bot.dialog('FindPlaceCom', function (session, args) {
     var messageTiming = session.message.timestamp;
   
 
-    if (messageTiming != undefined && messageTiming != null) {
+    // if (messageTiming != undefined && messageTiming != null) {
 		
-		var date = new Date();
+	// 	var date = new Date();
 
-    var hour = date.getHours();
-	console.log(hour);
+    // var hour = date.getHours();
+	// console.log(hour);
+    // }
 	
 
     //     if ((hour >= 17) && (hour< 23)) {
