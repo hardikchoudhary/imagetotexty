@@ -173,20 +173,20 @@ greeting="";
     matches: 'greeting'
 });
 
-bot.dialog('FindPlaceCom', function (session, args) {
+// // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
+bot = new builder.UniversalBot(connector, function (session) {
 
-    if(args.intent.entities[args.intent.entities.length-1].type=="Places"){
-        nearfromPlace=args.intent.entities[args.intent.entities.length-1].entity
+//     if(args.intent.entities[args.intent.entities.length-1].type=="Places"){
+//         nearfromPlace=args.intent.entities[args.intent.entities.length-1].entity
+// }
+if(!(session.message.text.toLowerCase().includes("from")||session.message.text.toLowerCase().includes("frm"))){
+
+if(!session.message.text.toLowerCase().includes("Get Route Details")) {
+  session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'PlaceName City' like nearest gip noida or closest to akshardham");
+}
 }
 
-    // ...
-
-
-
-
 // // Receive messages from the user and respond by echoing each message back (prefixed with 'You said:')
-
-
     if (session.message.text.includes("Get Route Details")) {
 
     var msg = new builder.Message(session)
@@ -197,31 +197,31 @@ bot.dialog('FindPlaceCom', function (session, args) {
         });
 
     session.send(msg);
-      session.send('If you want exact route , Please message in format "Starting place/Metro to Destination Place/Metro Name" ISBT to Akshardham');
+     // session.send('If you want exact route , Please message in format "Starting place/Metro to Destination Place/Metro Name" ISBT to Akshardham');
     }
 
-    else { 
-        var args=session.message.text;
+if ((session.message.text.toLowerCase().includes("from")||session.message.text.toLowerCase().includes("frm"))) {
+       
 
         //FindingPlace
     //   nearfromPlace = builder.EntityRecognizer.findEntity(args.intent.entities, 'Place');
 
-    //     nearfromPlace = session.message.text.split("from")[1];
+        nearfromPlace = session.message.text.split("from")[1];
 
-    //     if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
-    //         nearfromPlace = session.message.text.split("From")[1];
-    //     }
+        if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+            nearfromPlace = session.message.text.split("From")[1];
+        }
 
-    //     if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
-    //         nearfromPlace = session.message.text.split("frm")[1];
-    //     }
-	// 	if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
-    //         nearfromPlace = session.message.text.split("Frm")[1];
-    //     }
+        if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+            nearfromPlace = session.message.text.split("frm")[1];
+        }
+		if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+            nearfromPlace = session.message.text.split("Frm")[1];
+        }
 
-    //     if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
-    //         nearfromPlace = session.message.text;
-    //     }
+        if (nearfromPlace == "" || nearfromPlace == undefined || nearfromPlace == null) {
+            nearfromPlace = session.message.text;
+        }
 
 
     //"2017-06-18T11:58:26+05:30"
@@ -338,8 +338,6 @@ geocoder.geocode(nearfromPlace, function(err, res) {
         });	
 });
     }
-    }).triggerAction({
-    matches: 'FindPlaceCom'
 });
 
                 
