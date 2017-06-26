@@ -165,15 +165,22 @@ bot.recognizer(recognizer);
 
 // Send welcome when conversation with bot is started, by initiating the root dialog
 
-bot.dialog('FindingPlace', function (session, args) {
-session.send("test");
+bot.dialog('FindPlaceCom', function (session, args) {
 
     console.log("in");
-    console.log(args);
-    
-    session.send("hello"+args.intent.entities[0].entity);
+session.send(args.intent.entities[0].entity +"---" +args.intent.entities[0].type);
+    session.send('Hello');
+        
 
-    if(args.intent.entities[0].type=="Places"){nearfromPlace=args.intent.entities[0].entity}
+//     if(args.intent.entities[0].type=="Place"){
+//         nearfromPlace=args.intent.entities[0].entity
+// }
+
+    if(args.intent.entities[args.intent.entities.length-1].type=="Places"){
+        nearfromPlace=args.intent.entities[args.intent.entities.length-1].entity
+    
+}
+
     // ...
 
 
@@ -333,7 +340,7 @@ geocoder.geocode(nearfromPlace, function(err, res) {
 });
     }
     }).triggerAction({
-    matches: 'FindingPlace'
+    matches: 'FindPlaceCom'
 });
 
                 
