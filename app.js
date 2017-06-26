@@ -166,6 +166,7 @@ bot.recognizer(recognizer);
 // Send welcome when conversation with bot is started, by initiating the root dialog
 
 bot.dialog('FindingPlace', function (session, args) {
+session.send("test");
 
     console.log("in");
     console.log(args);
