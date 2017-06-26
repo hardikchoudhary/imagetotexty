@@ -191,7 +191,7 @@ if(!session.message.text.toLowerCase().includes("get route details")) {
 
     var msg = new builder.Message(session)
         .addAttachment({
-            contentUrl: 'http://www.mapsofindia.com/maps/delhi/delhi-metro-map.jpg',
+            contentUrl: 'http://www.delhimetrorail.com/zoom-map.jpg',
             contentType: 'image/jpg',
             name: 'route.jpg'
         });
