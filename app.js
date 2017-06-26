@@ -169,6 +169,8 @@ bot.dialog('FindingPlace', function (session, args) {
 
     console.log("in");
     console.log(args);
+    
+    session.send("hello"+args.intent.entities[0].entity);
 
     if(args.intent.entities[0].type=="Places"){nearfromPlace=args.intent.entities[0].entity}
     // ...
