@@ -191,7 +191,7 @@ if(!session.message.text.toLowerCase().includes("get route details")) {
 
     var msg = new builder.Message(session)
         .addAttachment({
-            contentUrl: 'http://www.delhimetrorail.com/zoom-map.jpg',
+            contentUrl: 'https://scontent.fdel3-1.fna.fbcdn.net/v/t1.0-9/13256094_596395820525231_860679115565792256_n.jpg?oh=79dacaf800390a0bf58426b2af8708a6&oe=5A0EBC4C',
             contentType: 'image/jpg',
             name: 'route.jpg'
         });
