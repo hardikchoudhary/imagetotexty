@@ -158,6 +158,7 @@ var bot = new builder.UniversalBot(connector);
 var recognizer = new builder.LuisRecognizer("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/dd2533b4-f80d-4a4c-a529-c5ed09f9923c?subscription-key=038dfe1286be41f48393267d754125eb&timezoneOffset=0&verbose=true&spellCheck=true");
 
 bot.recognizer(recognizer);
+  var greeting = "Hope You are good";
 
 // var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
 // bot.dialog('/', dialog);
@@ -165,20 +166,17 @@ bot.recognizer(recognizer);
 
 // Send welcome when conversation with bot is started, by initiating the root dialog
 
+bot.dialog('greeting', function (session, args) {
+ session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'PlaceName City' like nearest gip noida or closest to akshardham or way you want");
+ greeting="";
+   }).triggerAction({
+    matches: 'greeting'
+});
+
 bot.dialog('FindPlaceCom', function (session, args) {
-
-    console.log("in");
-session.send(args.intent.entities[0].entity +"---" +args.intent.entities[0].type);
-    session.send('Hello');
-        
-
-//     if(args.intent.entities[0].type=="Place"){
-//         nearfromPlace=args.intent.entities[0].entity
-// }
 
     if(args.intent.entities[args.intent.entities.length-1].type=="Places"){
         nearfromPlace=args.intent.entities[args.intent.entities.length-1].entity
-    
 }
 
     // ...
@@ -228,7 +226,7 @@ session.send(args.intent.entities[0].entity +"---" +args.intent.entities[0].type
 
     //"2017-06-18T11:58:26+05:30"
     var messageTiming = session.message.timestamp;
-    var greeting = "";
+  
 
     if (messageTiming != undefined && messageTiming != null) {
 		
@@ -238,18 +236,18 @@ session.send(args.intent.entities[0].entity +"---" +args.intent.entities[0].type
 	console.log(hour);
 	
 
-        if ((hour >= 17) && (hour< 23)) {
+    //     if ((hour >= 17) && (hour< 23)) {
 
-            greeting = "Good Evening";
-        }
-        if ((hour >= 4) && (hour < 12)) { greeting = "Good Morning"; }
+    //         greeting = "Good Evening";
+    //     }
+    //     if ((hour >= 4) && (hour < 12)) { greeting = "Good Morning"; }
 
-        if ((hour >= 12) && (hour < 17)) { greeting = "Good After Noon" }
+    //     if ((hour >= 12) && (hour < 17)) { greeting = "Good After Noon" }
 		
-	    if ((hour >= 23) && (hour < 4)) { greeting = "So Late , I am here to help" }
+	//     if ((hour >= 23) && (hour < 4)) { greeting = "So Late , I am here to help" }
 		
-		greeting="Hope You are good :) ";
-    }
+	// 	greeting="Hope You are good :) ";
+    // }
     session.send("Hi " + session.message.user.name + ", " + greeting + " You asked for nearest metro station from: %s", nearfromPlace);	
 
 
