@@ -167,7 +167,7 @@ bot.recognizer(recognizer);
 // Send welcome when conversation with bot is started, by initiating the root dialog
 
 bot.dialog('greeting', function (session, args) {
- session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'PlaceName City' like nearest gip noida or closest to akshardham or way you want");
+ session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'from PlaceName City' like  Ex1 'from gip noida', Ex2  frm akshardham");
 greeting="";
    }).triggerAction({
     matches: 'greeting'
@@ -182,7 +182,7 @@ bot = new builder.UniversalBot(connector, function (session) {
 if(!(session.message.text.toLowerCase().includes("from")||session.message.text.toLowerCase().includes("frm"))){
 
 if(!session.message.text.toLowerCase().includes("get route details")) {
-  session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'PlaceName City' like nearest gip noida or closest to akshardham");
+  session.send("Hello hope you are good ,Please start finding nearest metro by messaging me 'from PlaceName City' like  Ex1 'from gip noida', Ex2  frm akshardham");
 }
 }
 
