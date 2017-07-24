@@ -1,26 +1,16 @@
 {
-  "name": "nearbymetro",
+  "name": "imagetext",
   "version": "1.0.0",
-  "description": "for finding nearby place",
-  "main": "app.js",
+  "description": "",
+  "main": "ingtxt.js",
+  "dependencies": {
+    "botbuilder": "^3.8.4",
+    "restify": "^5.0.1"
+  },
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Hardik",
-  "license": "ISC",
-  "dependencies": {
-    "botbuilder": "^3.8.4",
-    "google-distance": "^1.0.1",
-    "node-geocoder": "^3.16.0",
-    "restify": "^4.3.0"
-  },
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/hardikchoudhary/NearByMetro.git"
-  },
-  "bugs": {
-    "url": "https://github.com/hardikchoudhary/NearByMetro/issues"
-  },
-  "homepage": "https://github.com/hardikchoudhary/NearByMetro#readme"
+  "author": "",
+  "license": "ISC"
 }
