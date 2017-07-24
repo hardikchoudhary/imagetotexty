@@ -12,7 +12,7 @@ var assert = require("assert");
 var fs = require('fs');
 
 var connector = new builder.ChatConnector({
-    appId: "eaf65756-b1d0-4740-8da1-e856c5296019",
+      appId: "eaf65756-b1d0-4740-8da1-e856c5296019",
     appPassword:"Ls0UBt0aTnTRKbSYf8x2eNk"
 });
 
