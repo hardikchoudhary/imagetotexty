@@ -1,9 +1,26 @@
 
 
 
+// Setup Restify Server
+var NodeGeocoder = require('node-geocoder');
+ 
+// myParams is parameters that you will pass to this function
+
 var restify = require('restify');
 
+// You can provide your own model by specifing the 'LUIS_MODEL_URL' environment variable
+// This Url can be obtained by uploading or creating your model from the LUIS portal: https://www.luis.ai/
+// var recognizer = new builder.LuisRecognizer("https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/dd2533b4-f80d-4a4c-a529-c5ed09f9923c?subscription-key=038dfe1286be41f48393267d754125eb&timezoneOffset=0&verbose=true&spellCheck=true");
+
+// bot.recognizer(recognizer);
+
+// var dialog = new builder.IntentDialog({ recognizers: [recognizer] });
+// bot.dialog('/', dialog);
+
+  // try extracting entities
      
+
+
 var server = restify.createServer();
 var builder = require('botbuilder');
 var passingresult="";
@@ -11,10 +28,17 @@ var assert = require("assert");
 
 var fs = require('fs');
 
+server.listen(process.env.port || process.env.PORT || 3978, function () {
+   console.log('%s listening to %s', server.name, server.url); 
+
+});
+
+// Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
- appId: "3dfa0867-614d-40d2-8092-08fd56df09f6",
+    appId: "3dfa0867-614d-40d2-8092-08fd56df09f6",
     appPassword:"mHCEFZUbfZnFH5HLUseuJK1"
 });
+
 
 server.post('/api/messages', connector.listen());
 
