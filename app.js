@@ -80,6 +80,7 @@ session.send("yuppie converted");
                  
                               // // }
  }).catch((err)=>{
+	 session.send(err);
    throw err;
  })
 // });
