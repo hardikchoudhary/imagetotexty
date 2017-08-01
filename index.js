@@ -44,15 +44,11 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
-    appId: "eaf65756-b1d0-4740-8da1-e856c5296019",
-    appPassword:"9r89jdUk4YrRGgTJSGiP6Yp"
+    appId: "",
+    appPassword:""
 });
 
 const microsofComputerVision = require("microsoft-computer-vision");
-
-
-
-
 
 server.post('/api/messages', connector.listen());
 
@@ -73,15 +69,13 @@ base64Img.requestBase64(url ,function(err, res, body) {
  data.push(body);
     console.log(body);
 
-//====
 
 microsofComputerVision.orcImage({
      "Ocp-Apim-Subscription-Key": "2b4043ad15ef443eb4b25182c6ac9dab",
      "request-origin":"westcentralus",
-    // // "content-type": "application/json",
-    // "url": "http://cdn.quotesgram.com/img/81/49/660235022-Random-Funny-Quotes-.jpg",
-	   "content-type": "application/octet-stream",
-       "body": data,
+   "content-type": "application/json",
+    "url": "http://cdn.quotesgram.com/img/81/49/660235022-Random-Funny-Quotes-.jpg",
+	
      "language": "en",
      "detect-orientation": true
 }).then((result)=>{
@@ -96,8 +90,6 @@ microsofComputerVision.orcImage({
 });
 
 //===
-	
-	
     } 
 	
 	else {
