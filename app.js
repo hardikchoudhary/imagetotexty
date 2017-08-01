@@ -70,11 +70,12 @@ microsofComputerVision.orcImage({
      "Ocp-Apim-Subscription-Key": "2b4043ad15ef443eb4b25182c6ac9dab",
      "request-origin":"westcentralus",
    "content-type": "application/json",
-    "url": attachment.ContentUrl,
+    "url": attachment.contentUrl,
      "language": "en",
      "detect-orientation": true
 }).then((result)=>{
-	session.send(result);
+	session.send("yuppiessss converted");
+	session.send(result.regions[0].lines[0].words[0].text);
 session.send("yuppie converted");
         // {
                  
