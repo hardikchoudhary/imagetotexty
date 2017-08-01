@@ -75,7 +75,6 @@ microsofComputerVision.orcImage({
      "request-origin":"westcentralus",
    "content-type": "application/json",
     "url": "http://cdn.quotesgram.com/img/81/49/660235022-Random-Funny-Quotes-.jpg",
-	
      "language": "en",
      "detect-orientation": true
 }).then((result)=>{
