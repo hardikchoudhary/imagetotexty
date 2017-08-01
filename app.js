@@ -65,10 +65,6 @@ var bot = new builder.UniversalBot(connector, function (session) {
 			 session.send(attachment.contentUrl);
 url=attachment.contentUrl;
 base64Img.requestBase64(url ,function(err, res, body) {
-  console.log("in base64==================================");
- data.push(body);
-    console.log(body);
-
 
 microsofComputerVision.orcImage({
      "Ocp-Apim-Subscription-Key": "2b4043ad15ef443eb4b25182c6ac9dab",
@@ -78,9 +74,8 @@ microsofComputerVision.orcImage({
      "language": "en",
      "detect-orientation": true
 }).then((result)=>{
-
-  console.log("fdsssssssssssssssssssssssssssssssssssssssssssssssssssss=================================================="); 
-   console.log(JSON.stringify(result));        // {
+session.send("yuppie converted");
+        // {
                  
                               // // }
  }).catch((err)=>{
