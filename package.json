@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hardikchoudhary/imagetotexty.git"
+    "url": "git+https://github.com/hardikchoudhary/i2txt.git"
   },
   "author": "hardik",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hardikchoudhary/imagetotexty/issues"
+    "url": "https://github.com/hardikchoudhary/i2txt/issues"
   },
-  "homepage": "https://github.com/hardikchoudhary/imagetotexty#readme",
+  "homepage": "https://github.com/hardikchoudhary/i2txt#readme",
   "dependencies": {
     "base64-img": "^1.0.3",
     "botbuilder": "^3.9.0",
