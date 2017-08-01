@@ -74,13 +74,14 @@ microsofComputerVision.orcImage({
      "language": "en",
      "detect-orientation": true
 }).then((result)=>{
-	session.send(result);
+	session.send("yuppiessss converted");
+	session.send(result.regions[0].lines[0].words[0].text);
 session.send("yuppie converted");
         // {
                  
                               // // }
  }).catch((err)=>{
-	 session.send(err);
+	
    throw err;
  })
 // });
