@@ -1,27 +1,26 @@
 {
-  "name": "nearbymetro",
+  "name": "imagetext",
   "version": "1.0.0",
-  "description": "for finding nearby place",
-  "main": "app.js",
+  "description": "im",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Hardik",
-  "license": "ISC",
-  "dependencies": {
-    "botbuilder": "^3.8.4",
-       "botbuilder-cognitiveservices": "^1.1.0",
-    "google-distance": "^1.0.1",
-    "node-geocoder": "^3.16.0",
-    "restify": "^4.3.0"
-  },
-  "devDependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hardikchoudhary/NearByMetro.git"
+    "url": "git+https://github.com/hardikchoudhary/imagetotexty.git"
   },
+  "author": "hardik",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/hardikchoudhary/NearByMetro/issues"
+    "url": "https://github.com/hardikchoudhary/imagetotexty/issues"
   },
-  "homepage": "https://github.com/hardikchoudhary/NearByMetro#readme"
+  "homepage": "https://github.com/hardikchoudhary/imagetotexty#readme",
+  "dependencies": {
+    "base64-img": "^1.0.3",
+    "botbuilder": "^3.9.0",
+    "cognitive-services": "^0.1.2",
+    "microsoft-computer-vision": "^0.3.2",
+    "restify": "^5.0.1"
+  }
 }
