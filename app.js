@@ -64,13 +64,13 @@ var bot = new builder.UniversalBot(connector, function (session) {
 	
 			 session.send(attachment.contentUrl);
 url=attachment.contentUrl;
-base64Img.requestBase64(url ,function(err, res, body) {
+// base64Img.requestBase64(url ,function(err, res, body) {
 
 microsofComputerVision.orcImage({
      "Ocp-Apim-Subscription-Key": "2b4043ad15ef443eb4b25182c6ac9dab",
      "request-origin":"westcentralus",
    "content-type": "application/json",
-    "url": "http://cdn.quotesgram.com/img/81/49/660235022-Random-Funny-Quotes-.jpg",
+    "url": attachment.ContentUrl,
      "language": "en",
      "detect-orientation": true
 }).then((result)=>{
@@ -82,7 +82,7 @@ session.send("yuppie converted");
  }).catch((err)=>{
    throw err;
  })
-});
+// });
 
 //===
     } 
