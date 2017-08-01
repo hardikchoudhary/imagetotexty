@@ -74,6 +74,7 @@ microsofComputerVision.orcImage({
      "language": "en",
      "detect-orientation": true
 }).then((result)=>{
+	session.send(result);
 session.send("yuppie converted");
         // {
                  
