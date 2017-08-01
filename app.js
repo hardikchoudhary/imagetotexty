@@ -44,8 +44,8 @@ server.listen(process.env.port || process.env.PORT || 3978, function () {
 
 // Create chat connector for communicating with the Bot Framework Service
 var connector = new builder.ChatConnector({
-    appId: "",
-    appPassword:""
+    appId: "4f453216-c94a-4da2-b1b0-e683cc161dbb",
+    appPassword:"UkkL3n9SSUeO6bx0NxDEhTN"
 });
 
 const microsofComputerVision = require("microsoft-computer-vision");
