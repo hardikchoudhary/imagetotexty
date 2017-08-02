@@ -60,6 +60,7 @@ var bot = new builder.UniversalBot(connector, function (session) {
     if (msg.attachments && msg.attachments.length > 0) {
      // Echo back attachment
      var attachment = msg.attachments[0];
+	    var imagetoTextString="";
 	 var data=[];
 	
 			 session.send(attachment.contentUrl);
@@ -77,9 +78,29 @@ microsofComputerVision.orcImage({
 	session.send("yuppiessss converted");
 	session.send(result.regions[0].lines[0].words[0].text);
 session.send("yuppie converted");
-        // {
-                 
-                              // // }
+	
+	
+		session.send("Bot to send text");
+	session.send(imagetoTextString);
+	var rlen=result.regions.length;
+	var r,l,w;
+	session.send("lenght of region"+rlen);
+	//  for (r = 0;r<rlen; r++) {
+	 var llen=result.regions[0].lines.length;
+
+	for(l=0; l<llen;l++){
+	imagetoTextString+="\n";
+	var wlen=result.regions[0].lines[l].words.length;
+		  for(var w=0; w<wlen;w++){
+		 imagetoTextString+=result.regions[0].lines[l].words[w].text+" ";
+		  }  
+	 }
+
+session.send(imagetoTextString);
+  console.log(imagetoTextString); 
+	
+	
+      
  }).catch((err)=>{
 	
    throw err;
